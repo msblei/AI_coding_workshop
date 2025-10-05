@@ -1,0 +1,23 @@
+{
+  "name": "viscon_test Codespace",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+  "remoteUser": "node",
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": {
+      "label": "React dev server",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "postCreateCommand": "npm ci || npm install",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "saoudrizwan.claude-dev"
+      ],
+      "settings": {
+        "files.autoSave": "onFocusChange"
+      }
+    }
+  }
+}

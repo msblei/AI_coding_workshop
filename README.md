@@ -1,3 +1,21 @@
+# GitHub Codespaces
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/msblei/viscon_test?quickstart=1)
+
+This repository is configured for GitHub Codespaces via a dev container. When you open a Codespace:
+
+- The environment uses Node 20 (image mcr.microsoft.com/devcontainers/javascript-node:20)
+- Dependencies are installed automatically using npm ci (falling back to npm install)
+- Port 3000 is forwarded and will auto-open when the dev server runs
+- The Cline extension is preinstalled (extension ID: saoudrizwan.claude-dev)
+
+Quick start:
+
+1. Click the badge above to create a Codespace.
+2. Wait for the container to build and dependencies to install.
+3. Start the app with: npm start
+4. The forwarded port will open in the browser automatically. You can also access Cline from the Activity Bar and sign in if desired.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
