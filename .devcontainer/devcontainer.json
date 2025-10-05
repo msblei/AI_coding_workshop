@@ -9,6 +9,9 @@
       "onAutoForward": "openBrowser"
     }
   },
+  "containerEnv": {
+    "CHOKIDAR_USEPOLLING": "true" // Set this here!
+  },
   "postCreateCommand": "npm ci || npm install",
   "customizations": {
     "vscode": {
