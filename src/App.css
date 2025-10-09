@@ -1,38 +1,148 @@
+/* Reset default CRA demo styles and add minimal UI for the bidding app */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: #f3f4f6; /* light gray */
+  color: #111827; /* gray-900 */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .App {
+  padding: 24px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  margin-bottom: 24px;
+}
+
+.App-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  line-height: 1.25;
+  color: #111827;
+}
+
+.App-content {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.art-card {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  padding: 16px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.art-image {
+  width: 200px;
+  height: 300px;
+  border-radius: 10px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+}
+
+.art-details {
+  text-align: left;
+  margin-top: 12px;
+}
+
+.price-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 8px 0 16px;
+}
+
+.label {
+  color: #6b7280; /* gray-500 */
+}
+
+.price {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #111827;
+}
+
+.bid-form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.bid-form input[type="number"] {
+  flex: 1 1 220px;
+  min-width: 180px;
+  padding: 10px 12px;
+  font-size: 1rem;
+  border: 1px solid #d1d5db; /* gray-300 */
+  border-radius: 8px;
+  background: #fff;
+  color: #111827;
+  outline: none;
+}
+
+.bid-form input[type="number"]:focus {
+  border-color: #2563eb; /* blue-600 */
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+}
+
+.bid-form button {
+  padding: 10px 14px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.bid-form button[type="submit"] {
+  background: #2563eb; /* blue-600 */
+  color: #fff;
+}
+
+.bid-form button.secondary {
+  background: #e5e7eb; /* gray-200 */
+  color: #111827;
+}
+
+.bid-form button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.message {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.message.success {
+  background: #ecfdf5; /* emerald-50 */
+  color: #065f46; /* emerald-800 */
+  border: 1px solid #a7f3d0; /* emerald-200 */
+}
+
+.message.info {
+  background: #fff7ed; /* orange-50 */
+  color: #9a3412; /* orange-800 */
+  border: 1px solid #fed7aa; /* orange-200 */
 }
