@@ -20,7 +20,7 @@ function App() {
       <main className="App-content">
         <div className="gallery-card">
           <div className="main-image" aria-live="polite">
-            <img src={mainSrc} alt={`Picsum image ${selectedId}`} />
+            <img src={mainSrc} alt={`Picsum ${selectedId}`} />
           </div>
 
           <div className="thumbnails" role="list" aria-label="Select a photo">
