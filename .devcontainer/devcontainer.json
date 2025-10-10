@@ -6,7 +6,8 @@
   "portsAttributes": {
     "3000": {
       "label": "React dev server",
-      "onAutoForward": "openBrowser"
+      "onAutoForward": "openBrowser",
+       "visibility": "public"
     }
   },
   "containerEnv": {
