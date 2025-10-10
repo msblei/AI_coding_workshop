@@ -7,11 +7,12 @@
     "3000": {
       "label": "React dev server",
       "onAutoForward": "openBrowser",
-       "visibility": "public"
+      "visibility": "public"
     }
   },
+  "postAttachCommand": "gh codespace ports visibility 3000:public -c $CODESPACE_NAME",
   "containerEnv": {
-    "CHOKIDAR_USEPOLLING": "true" // Set this here!
+    "CHOKIDAR_USEPOLLING": "true"
   },
   "postCreateCommand": "npm ci || npm install",
   "customizations": {
