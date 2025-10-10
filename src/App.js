@@ -1,79 +1,44 @@
 import { useState } from 'react';
 import './App.css';
 
-const currencyFormatter = new Intl.NumberFormat('de-DE', {
-  style: 'currency',
-  currency: 'EUR',
-});
-
 function App() {
-  const price = 500; // Asking price for the painting
-  const [bid, setBid] = useState('');
-  const [message, setMessage] = useState('');
-  const [purchased, setPurchased] = useState(false);
+  // Fixed Picsum image IDs to avoid randomness
+  const imageIds = [237, 238, 239, 240];
 
-  const handleBidSubmit = (e) => {
-    e.preventDefault();
-    const amount = parseFloat(bid);
+  // Currently selected image (shown large)
+  const [selectedId, setSelectedId] = useState(imageIds[0]);
 
-    if (isNaN(amount) || amount <= 0) {
-      setMessage('Enter a valid bid amount.');
-      return;
-    }
-
-    if (amount > price) {
-      setPurchased(true);
-      setMessage('You bought the picture!');
-    } else {
-      setMessage('Bid too low. Try a higher amount.');
-    }
-  };
-
-  const handleReset = () => {
-    setBid('');
-    setMessage('');
-    setPurchased(false);
-  };
+  const mainSrc = `https://picsum.photos/id/${selectedId}/1000/600`;
+  const thumbnails = imageIds;
 
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Art Bidding</h1>
+        <h1>Photo Gallery</h1>
       </header>
 
       <main className="App-content">
-        <div className="art-card">
-          <img src="https://picsum.photos/200/300" alt="Random painting" className="art-image" />
-          <div className="art-details">
-            <div className="price-row">
-              <span className="label">Price:</span>
-              <span className="price">{currencyFormatter.format(price)}</span>
-            </div>
+        <div className="gallery-card">
+          <div className="main-image" aria-live="polite">
+            <img src={mainSrc} alt={`Picsum image ${selectedId}`} />
+          </div>
 
-            <form onSubmit={handleBidSubmit} className="bid-form">
-              <input
-                type="number"
-                min="0"
-                step="0.01"
-                value={bid}
-                onChange={(e) => setBid(e.target.value)}
-                placeholder="Enter your bid"
-                disabled={purchased}
-                aria-label="Bid amount"
-              />
-              <button type="submit" disabled={purchased}>
-                Place Bid
+          <div className="thumbnails" role="list" aria-label="Select a photo">
+            {thumbnails.map((id) => (
+              <button
+                key={id}
+                className={`thumbnail-button ${id === selectedId ? 'is-selected' : ''}`}
+                onClick={() => setSelectedId(id)}
+                aria-label={`Show image ${id}`}
+                aria-current={id === selectedId ? 'true' : undefined}
+              >
+                <img
+                  className="thumbnail-img"
+                  src={`https://picsum.photos/id/${id}/240/160`}
+                  alt={`Thumbnail ${id}`}
+                />
               </button>
-              <button type="button" className="secondary" onClick={handleReset}>
-                Reset
-              </button>
-            </form>
-
-            {message && (
-              <div className={`message ${purchased ? 'success' : 'info'}`}>
-                {message}
-              </div>
-            )}
+            ))}
           </div>
         </div>
       </main>
