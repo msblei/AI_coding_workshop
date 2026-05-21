@@ -9,12 +9,16 @@ fi
 cat <<EOF
 
 ╔══════════════════════════════════════════════════════════════════╗
-║          ✅  Setup complete!                                     ║
+║          🚀  Starting your app...                                ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-  Your app URL:
-      $URL
+  Wait until you see "Compiled successfully!" below (about 30 seconds),
+  then open this URL in a new browser tab:
 
-  Now follow the README on the left (step 2).
+  👉  $URL
+
+  When the page loads, you should see: "Everything works!"
 
 EOF
+
+exec npx react-scripts start

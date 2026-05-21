@@ -11,8 +11,8 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <h1>Hello, workshop!</h1>
-      <p>Send your first message to Cline to start building.</p>
+      <h1>✅ Everything works!</h1>
+      <p>Wait for instructions from the workshop leaders.</p>
     </div>
   );
 }

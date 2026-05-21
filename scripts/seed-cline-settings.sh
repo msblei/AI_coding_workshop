@@ -44,7 +44,6 @@ UPDATED=$(jq -n \
   '$existing + {
     "files.autoSave": "onFocusChange",
     "workbench.startupEditor": "readme",
-    "task.allowAutomaticTasks": "on",
     "chat.disableAIFeatures": true,
     "chat.commandCenter.enabled": false,
     "github.copilot.enable": { "*": false },
