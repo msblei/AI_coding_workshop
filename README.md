@@ -1,6 +1,6 @@
 # AI Coding Workshop
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/msblei/viscon_test?quickstart=1)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/msblei/AI_coding_workshop?quickstart=1)
 
 ---
 
@@ -8,9 +8,11 @@
 
 Welcome! Follow these steps in order. If you get stuck, raise your hand.
 
-### 1. You're already set up.
+### 1. Click "Open in GitHub Codespaces" at the top.
 
-This page is running inside your own coding environment. You don't need to install anything.
+This opens a new page, log in with your GitHub account (if not already logged in) and then click "Create new codespace".
+
+![alt text](resources/create_codespace.png)
 
 ### 2. Find the robot icon.
 
@@ -62,16 +64,16 @@ Everything below this line is for the people running the workshop.
 
 ### Repo layout
 
-| File / dir                               | Purpose                                                                                                                                                                                                                                                                    |
-| ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `workshop.config.json`                   | Single source of truth: submit URL, LiteLLM base URL, model. Edit per workshop instance.                                                                                                                                                                                   |
-| `.devcontainer/devcontainer.json`        | Preinstalls Cline, installs `jq`, runs the seed + welcome scripts.                                                                                                                                                                                                         |
-| `scripts/seed-cline-settings.sh`         | On `postCreate`, reads `workshop.config.json` and writes `.vscode/settings.json` so Cline opens pre-pointed at your LiteLLM proxy.                                                                                                                                         |
-| `scripts/welcome.sh`                     | Terminal banner on every attach: live URL, submit doc.                                                                                                                                                                                                                     |
-| `scripts/share-url.sh`                   | What `npm run share` calls. Prints the participant's `*-3000.app.github.dev` URL plus the submit doc link.                                                                                                                                                                 |
-| `scripts/reset-app.sh`                   | What `npm run reset-app` calls. Restores `src/App.js` and `src/App.css` to the blank starter (inlined in the script), removes any `architecture.md` / `todo.md` leftover, and re-applies the browser tab title.                                                            |
-| `scripts/set-title.sh`                   | Sets `<title>` in `public/index.html` to the participant's name so each browser tab in the showcase grid is labeled. Runs on `postCreate`. Falls back through `$WORKSHOP_PARTICIPANT_NAME` → `git config user.name` → `$GITHUB_USER` → `$CODESPACE_NAME` → "Workshop App". |
-| `scripts/mint-keys.sh`                   | **Organizer-only.** Mints N LiteLLM virtual keys from a `participants.txt` list. Prints CSV.                                                                                                                                                                               |
+| File / dir                        | Purpose                                                                                                                                                                                                                                                                    |
+| --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `workshop.config.json`            | Single source of truth: submit URL, LiteLLM base URL, model. Edit per workshop instance.                                                                                                                                                                                   |
+| `.devcontainer/devcontainer.json` | Preinstalls Cline, installs `jq`, runs the seed + welcome scripts.                                                                                                                                                                                                         |
+| `scripts/seed-cline-settings.sh`  | On `postCreate`, reads `workshop.config.json` and writes `.vscode/settings.json` so Cline opens pre-pointed at your LiteLLM proxy.                                                                                                                                         |
+| `scripts/welcome.sh`              | Terminal banner on every attach: live URL, submit doc.                                                                                                                                                                                                                     |
+| `scripts/share-url.sh`            | What `npm run share` calls. Prints the participant's `*-3000.app.github.dev` URL plus the submit doc link.                                                                                                                                                                 |
+| `scripts/reset-app.sh`            | What `npm run reset-app` calls. Restores `src/App.js` and `src/App.css` to the blank starter (inlined in the script), removes any `architecture.md` / `todo.md` leftover, and re-applies the browser tab title.                                                            |
+| `scripts/set-title.sh`            | Sets `<title>` in `public/index.html` to the participant's name so each browser tab in the showcase grid is labeled. Runs on `postCreate`. Falls back through `$WORKSHOP_PARTICIPANT_NAME` → `git config user.name` → `$GITHUB_USER` → `$CODESPACE_NAME` → "Workshop App". |
+| `scripts/mint-keys.sh`            | **Organizer-only.** Mints N LiteLLM virtual keys from a `participants.txt` list. Prints CSV.                                                                                                                                                                               |
 
 ### Workshop flow (120 min)
 
