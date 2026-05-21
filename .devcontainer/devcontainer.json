@@ -1,5 +1,5 @@
 {
-  "name": "viscon_test Codespace",
+  "name": "ai_coding_ws Codespace",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
   "remoteUser": "node",
   "forwardPorts": [3000],
