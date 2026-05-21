@@ -13,12 +13,27 @@ cat <<EOF
 ╚══════════════════════════════════════════════════════════════════╝
 
   Wait until you see "Compiled successfully!" below (about 30 seconds),
-  then open this URL in a new browser tab:
-
-  👉  $URL
-
-  When the page loads, you should see: "Everything works!"
+  then click your app URL — it will appear right after the compile.
 
 EOF
 
-exec npx react-scripts start
+# Pipe CRA's output through awk so we can inject our codespace URL right
+# after each successful compile. The localhost / network URLs CRA prints
+# by default are useless in Codespaces — participants need this URL instead.
+npx react-scripts start 2>&1 | awk -v url="$URL" '
+{
+  print $0
+  fflush()
+  if (/webpack compiled successfully/) {
+    print ""
+    print "  ────────────────────────────────────────────────────────────"
+    print "  👉  Your app is live! Click here to open it:"
+    print ""
+    print "      " url
+    print ""
+    print "      The page should say: \"Everything works!\""
+    print "  ────────────────────────────────────────────────────────────"
+    print ""
+    fflush()
+  }
+}'
