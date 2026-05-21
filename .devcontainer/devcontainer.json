@@ -22,7 +22,8 @@
       ],
       "settings": {
         "files.autoSave": "onFocusChange",
-        "workbench.startupEditor": "readme"
+        "workbench.startupEditor": "readme",
+        "task.allowAutomaticTasks": "on"
       }
     }
   },

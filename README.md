@@ -16,6 +16,8 @@ This opens a new page, log in with your GitHub account (if not already logged in
 
 ![alt text](resources/create_codespace.png)
 
+After this, these instructions will be availble inside the new page, so don't worry about closing this page.
+
 ### 2. Find the robot icon.
 
 On the **left side of the screen**, look for the icon that looks like a small robot. Click it. A panel opens on the side.
@@ -36,25 +38,19 @@ The robot writes code by itself. You don't have to do anything. It might take a 
 
 A new browser tab opens with your app inside it. Click around. **What works? What's broken? What's silly?**
 
-### 7. Share your app.
+### 7. Share your link.
 
-At the bottom of the screen, find the area called **Terminal**. (If you don't see it: click "Terminal" → "New Terminal" at the very top of the screen.) Type this and press Enter:
+When your codespace finished setting up, a **Welcome** message printed at the bottom of the screen with your live URL. It looks like `https://something-3000.app.github.dev`. Copy it.
 
-```
-npm run share
-```
+(If you can't find the welcome message, the same URL is shown in the **Ports** tab at the bottom of the screen, or in the address bar of the browser tab where your app is running.)
 
-You'll see a web link printed out. **That's your live app.**
-
-### 8. Paste your link here.
-
-Open the workshop document and add your name and link at the bottom:
+Now paste your name and the URL into the workshop submission doc:
 
 👉 **[Workshop submission doc](https://docs.google.com/document/d/1cgWG_Foie4dn7LOJ9J-9Qep2sB2R1cD0maejTJbVMjY/edit?usp=sharing)**
 
 Example line to paste: `Marius — https://abc123-3000.app.github.dev`
 
-### 9. Wait for the next exercise.
+### 8. Wait for the next exercise.
 
 The workshop leaders will introduce a new way to work with the robot. We'll build a second app, but smarter this time.
 
@@ -71,8 +67,8 @@ Everything below this line is for the people running the workshop.
 | `workshop.config.json`            | Single source of truth: submit URL, LiteLLM base URL, model. Edit per workshop instance.                                                                                                                                                                                   |
 | `.devcontainer/devcontainer.json` | Preinstalls Cline, installs `jq`, runs the seed + welcome scripts.                                                                                                                                                                                                         |
 | `scripts/seed-cline-settings.sh`  | On `postCreate`, reads `workshop.config.json` and writes `.vscode/settings.json` so Cline opens pre-pointed at your LiteLLM proxy.                                                                                                                                         |
-| `scripts/welcome.sh`              | Terminal banner on every attach: live URL, submit doc.                                                                                                                                                                                                                     |
-| `scripts/share-url.sh`            | What `npm run share` calls. Prints the participant's `*-3000.app.github.dev` URL plus the submit doc link.                                                                                                                                                                 |
+| `scripts/welcome.sh`              | Terminal banner on every attach: live URL, submit doc, example paste line. This IS the share screen — participants don't run any command, they just read it.                                                                                                               |
+| `.vscode/tasks.json`              | Auto-starts `npm start` in a dedicated terminal tab when the workspace opens. Combined with `task.allowAutomaticTasks: "on"`, this means the dev server is up by the time the participant reads the welcome banner.                                                        |
 | `scripts/reset-app.sh`            | What `npm run reset-app` calls. Restores `src/App.js` and `src/App.css` to the blank starter (inlined in the script), removes any `architecture.md` / `todo.md` leftover, and re-applies the browser tab title.                                                            |
 | `scripts/set-title.sh`            | Sets `<title>` in `public/index.html` to the participant's name so each browser tab in the showcase grid is labeled. Runs on `postCreate`. Falls back through `$WORKSHOP_PARTICIPANT_NAME` → `git config user.name` → `$GITHUB_USER` → `$CODESPACE_NAME` → "Workshop App". |
 | `scripts/mint-keys.sh`            | **Organizer-only.** Mints N LiteLLM virtual keys from a `participants.txt` list. Prints CSV.                                                                                                                                                                               |
@@ -81,11 +77,11 @@ Everything below this line is for the people running the workshop.
 
 | Block                       | Time    | Activity                                                                                                                                                                                                                                                                       |
 | --------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **A. Setup**                | 0–15    | "Click the badge" slide. Participants open Codespace, paste key, wait for `npm start`, see the "Hello, workshop!" page.                                                                                                                                                        |
-| **B. Vibe round**           | 15–45   | Slide intro to Cline's Plan/Act toggle (set to **Act** for this round). Exercise 1 prompt — see below. Participants iterate freely. Demo `npm run share` partway through. Expected: messy half-working apps.                                                                   |
+| **A. Setup**                | 0–15    | "Click the badge" slide. Participants open Codespace, paste key, dev server auto-starts, see the "Hello, workshop!" page and the welcome banner with their URL.                                                                                                                |
+| **B. Vibe round**           | 15–45   | Slide intro to Cline's Plan/Act toggle (set to **Act** for this round). Exercise 1 prompt — see below. Participants iterate freely. Remind them their URL is in the welcome banner. Expected: messy half-working apps.                                                         |
 | **C. Showcase + diagnosis** | 45–60   | Click through 5–8 submissions live. Discussion: "What's broken? Why?" Land the takeaway: vibe coding produces _something_ but structure rots fast as features pile on.                                                                                                         |
 | **D. Spec-driven intro**    | 60–75   | Slide + live demo. Either spin up a fresh Codespace or have participants run `npm run reset-app`. Switch Cline to **Plan mode**. Run the Exercise 2 spec prompt. Narrate: "no code yet, just a plan we can argue with." Refine the plan with 2–3 follow-ups. Then flip to Act. |
-| **E. Build round**          | 75–110  | Participants run their own plan→act cycle. Float around. Demo `npm run share` again partway.                                                                                                                                                                                   |
+| **E. Build round**          | 75–110  | Participants run their own plan→act cycle. Float around. Remind them to update their entry in the submission doc.                                                                                                                                                              |
 | **F. Showcase + wrap**      | 110–120 | Click through new submissions. Side-by-side: vibe round vs spec round. Q&A.                                                                                                                                                                                                    |
 
 ### Exercise 1 prompt (Act mode, on slide)
@@ -131,9 +127,10 @@ The visible artifacts (architecture.md, todo.md, ticked checkboxes) are the wow 
 
 ### Dry-run checklist before announcing
 
-- [ ] Open a fresh Codespace from this repo. Paste a freshly-minted virtual key into Cline. Confirm setting comes from `.vscode/settings.json` (`cat .vscode/settings.json`) and that Cline's base URL is already filled in.
+- [ ] Open a fresh Codespace from this repo. Confirm the dev server auto-starts in its own terminal tab (no manual `npm start`) and that the welcome banner with the live URL appears in the integrated terminal.
+- [ ] Paste a freshly-minted virtual key into Cline. Confirm `.vscode/settings.json` already has the LiteLLM base URL and model filled in (`cat .vscode/settings.json`).
 - [ ] Run Exercise 1 in Act mode end-to-end. Time it.
-- [ ] Run `npm run share`. Confirm the URL pastes cleanly into the submission doc and is reachable from an incognito browser without a GitHub session.
+- [ ] Copy the URL from the welcome banner, paste it into the submission doc with a name. Confirm it's reachable from an incognito browser without a GitHub session.
 - [ ] `npm run reset-app`. Confirm `src/App.js` is back to the blank shell and any old `architecture.md` / `todo.md` is gone.
 - [ ] Run Exercise 2 in Plan mode. Confirm Cline writes `architecture.md` and `todo.md`, pauses, then ticks items off in Act.
 - [ ] Fire 5 simultaneous Exercise 1 runs from 5 codespaces. Watch the LiteLLM dashboard for rate-limit errors. Scale upstream tier _before_ the workshop, not during.

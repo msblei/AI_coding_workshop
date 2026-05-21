@@ -17,7 +17,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "share": "bash scripts/share-url.sh",
     "reset-app": "bash scripts/reset-app.sh",
     "set-title": "bash scripts/set-title.sh"
   },
