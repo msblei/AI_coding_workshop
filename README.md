@@ -82,9 +82,15 @@ Welcome! There are **three setup steps**. If you are stuck at any, please raise 
    npm start
    ```
 
+   ![Type npm start](resources/npm_start.png)
+
 3. Wait until you see **"Compiled successfully!"** below it — about 30 seconds.
 
-4. Click your app URL (or copy-paste it into a new browser tab). The page should say **"Everything works!"**.
+4. Click your app URL (or copy-paste it into a new browser tab). If you see a security warning, click "Continue".
+
+   ![Type npm start](resources/github_warning.png)
+
+The page should say **"Everything works!"**.
 
 5. Wait for further instructions.
 
