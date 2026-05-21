@@ -38,6 +38,8 @@ Welcome! There are **three setup steps**. If you are stuck at any, please raise 
 
    ![Workshop document with names, keys, and URLs](resources/google_document.png)
 
+   (Key in screenshot is a fake key)
+
 3. Back in the codespace, click the **robot icon** on the left sidebar. A panel opens.
 
    ![Cline icon in the sidebar](resources/cline_icon.png)
