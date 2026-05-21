@@ -43,7 +43,11 @@ UPDATED=$(jq -n \
   --arg model "$MODEL" \
   '$existing + {
     "files.autoSave": "onFocusChange",
-    "workbench.startupEditor": "none",
+    "workbench.startupEditor": "readme",
+    "task.allowAutomaticTasks": "on",
+    "chat.disableAIFeatures": true,
+    "chat.commandCenter.enabled": false,
+    "github.copilot.enable": { "*": false },
     "cline.apiProvider": "anthropic",
     "cline.anthropicBaseUrl": $baseUrl,
     "cline.modelId": $model,
