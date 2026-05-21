@@ -12,33 +12,39 @@ cat <<EOF
 ║          🚀  Starting your app...                                ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-  Wait until you see "Compiled successfully!" below (about 30 seconds),
-  then click your app URL — it will appear right after the compile.
+  Wait until you see the "Your app is live!" banner below
+  (about 30 seconds), then click your app URL.
 
 EOF
 
-# Pipe CRA's output through awk so we can inject our codespace URL right
-# after each successful compile. The localhost / network URLs CRA prints
-# by default are useless in Codespaces — participants need this URL instead.
-#
-# `script -qefc … /dev/null` allocates a pseudo-TTY for react-scripts. Without
-# the PTY, Node detects stdout is a pipe and block-buffers its output, so awk
-# would only see CRA's lines in big chunks (terminal looks frozen). The PTY
-# makes Node flush line-by-line.
-script -qefc "BROWSER=none npx react-scripts start" /dev/null | awk -v url="$URL" '
-{
-  print $0
-  fflush()
-  if (/webpack compiled successfully/) {
-    print ""
-    print "  ────────────────────────────────────────────────────────────"
-    print "  👉  Your app is live! Click here to open it:"
-    print ""
-    print "      " url
-    print ""
-    print "      The page should say: \"Everything works!\""
-    print "  ────────────────────────────────────────────────────────────"
-    print ""
-    fflush()
-  }
-}'
+# Background watcher: poll the dev server until it responds, then print the
+# click-here banner. We can't pipe CRA's stdout through a filter to detect
+# "Compiled successfully" — Node block-buffers stdout when piped, freezing
+# the terminal until a chunk fills. Polling the server directly avoids that
+# whole class of problem and keeps CRA's output unmolested (colors, in-place
+# progress updates, etc. still work).
+(
+  while ! curl -fsS -o /dev/null http://localhost:3000 2>/dev/null; do
+    sleep 1
+  done
+  # Give CRA a beat to finish printing its own intro before we append.
+  sleep 2
+  cat <<INNER
+
+  ────────────────────────────────────────────────────────────
+  👉  Your app is live! Click here to open it:
+
+      $URL
+
+      The page should say: "Everything works!"
+  ────────────────────────────────────────────────────────────
+
+INNER
+) &
+WATCHER_PID=$!
+
+# Make sure the background watcher dies with us (e.g. when the user Ctrl+C's
+# before the server comes up).
+trap "kill $WATCHER_PID 2>/dev/null || true" EXIT INT TERM
+
+BROWSER=none npx react-scripts start
