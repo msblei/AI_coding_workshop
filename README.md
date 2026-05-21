@@ -1,88 +1,158 @@
-# GitHub Codespaces
+# AI Coding Workshop
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/msblei/viscon_test?quickstart=1)
 
-This repository is configured for GitHub Codespaces via a dev container. When you open a Codespace:
+---
 
-- The environment uses Node 20 (image mcr.microsoft.com/devcontainers/javascript-node:20)
-- Dependencies are installed automatically using npm ci (falling back to npm install)
-- Port 3000 is forwarded and will auto-open when the dev server runs
-- The Cline extension is preinstalled (extension ID: saoudrizwan.claude-dev)
+## Instructions for participants
 
-Quick start:
+Welcome! Follow these steps in order. If you get stuck, raise your hand.
 
-1. Click the badge above to create a Codespace.
-2. Wait for the container to build and dependencies to install.
-3. Start the app with: npm start
-4. The forwarded port will open in the browser automatically. You can also access Cline from the Activity Bar and sign in if desired.
+### 1. You're already set up.
 
-# Getting Started with Create React App
+This page is running inside your own coding environment. You don't need to install anything.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 2. Find the robot icon.
 
-## Available Scripts
+On the **left side of the screen**, look for the icon that looks like a small robot. Click it. A panel opens on the side.
 
-In the project directory, you can run:
+### 3. Paste the key you were given.
 
-### `npm start`
+The workshop leaders handed you a key — a long string of letters and numbers. Paste it into the box in the panel, then click "Save". You should now see a chat box.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 4. Send this message to the robot:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+> Build me a flashcard study app in this React project. I should be able to flip cards and go to the next one.
 
-### `npm test`
+### 5. Watch what happens.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The robot writes code by itself. You don't have to do anything. It might take a minute or two. Files will appear on the left.
 
-### `npm run build`
+### 6. Try your app.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+A new browser tab opens with your app inside it. Click around. **What works? What's broken? What's silly?**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 7. Share your app.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+At the bottom of the screen, find the area called **Terminal**. (If you don't see it: click "Terminal" → "New Terminal" at the very top of the screen.) Type this and press Enter:
 
-### `npm run eject`
+```
+npm run share
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+You'll see a web link printed out. **That's your live app.**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 8. Paste your link here.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Open the workshop document and add your name and link at the bottom:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+👉 **[Workshop submission doc](https://docs.google.com/document/d/1cgWG_Foie4dn7LOJ9J-9Qep2sB2R1cD0maejTJbVMjY/edit?usp=sharing)**
 
-## Learn More
+Example line to paste: `Marius — https://abc123-3000.app.github.dev`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 9. Wait for the next exercise.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The workshop leaders will introduce a new way to work with the robot. We'll build a second app, but smarter this time.
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Instructions for instructors
 
-### Analyzing the Bundle Size
+Everything below this line is for the people running the workshop.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Repo layout
 
-### Making a Progressive Web App
+| File / dir                               | Purpose                                                                                                                                                                                                                                                                    |
+| ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `workshop.config.json`                   | Single source of truth: submit URL, LiteLLM base URL, model. Edit per workshop instance.                                                                                                                                                                                   |
+| `.devcontainer/devcontainer.json`        | Preinstalls Cline, installs `jq`, runs the seed + welcome scripts.                                                                                                                                                                                                         |
+| `scripts/seed-cline-settings.sh`         | On `postCreate`, reads `workshop.config.json` and writes `.vscode/settings.json` so Cline opens pre-pointed at your LiteLLM proxy.                                                                                                                                         |
+| `scripts/welcome.sh`                     | Terminal banner on every attach: live URL, submit doc.                                                                                                                                                                                                                     |
+| `scripts/share-url.sh`                   | What `npm run share` calls. Prints the participant's `*-3000.app.github.dev` URL plus the submit doc link.                                                                                                                                                                 |
+| `scripts/reset-app.sh`                   | What `npm run reset-app` calls. Restores `src/App.js` and `src/App.css` to the blank starter (inlined in the script), removes any `architecture.md` / `todo.md` leftover, and re-applies the browser tab title.                                                            |
+| `scripts/set-title.sh`                   | Sets `<title>` in `public/index.html` to the participant's name so each browser tab in the showcase grid is labeled. Runs on `postCreate`. Falls back through `$WORKSHOP_PARTICIPANT_NAME` → `git config user.name` → `$GITHUB_USER` → `$CODESPACE_NAME` → "Workshop App". |
+| `scripts/mint-keys.sh`                   | **Organizer-only.** Mints N LiteLLM virtual keys from a `participants.txt` list. Prints CSV.                                                                                                                                                                               |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Workshop flow (120 min)
 
-### Advanced Configuration
+| Block                       | Time    | Activity                                                                                                                                                                                                                                                                       |
+| --------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **A. Setup**                | 0–15    | "Click the badge" slide. Participants open Codespace, paste key, wait for `npm start`, see the "Hello, workshop!" page.                                                                                                                                                        |
+| **B. Vibe round**           | 15–45   | Slide intro to Cline's Plan/Act toggle (set to **Act** for this round). Exercise 1 prompt — see below. Participants iterate freely. Demo `npm run share` partway through. Expected: messy half-working apps.                                                                   |
+| **C. Showcase + diagnosis** | 45–60   | Click through 5–8 submissions live. Discussion: "What's broken? Why?" Land the takeaway: vibe coding produces _something_ but structure rots fast as features pile on.                                                                                                         |
+| **D. Spec-driven intro**    | 60–75   | Slide + live demo. Either spin up a fresh Codespace or have participants run `npm run reset-app`. Switch Cline to **Plan mode**. Run the Exercise 2 spec prompt. Narrate: "no code yet, just a plan we can argue with." Refine the plan with 2–3 follow-ups. Then flip to Act. |
+| **E. Build round**          | 75–110  | Participants run their own plan→act cycle. Float around. Demo `npm run share` again partway.                                                                                                                                                                                   |
+| **F. Showcase + wrap**      | 110–120 | Click through new submissions. Side-by-side: vibe round vs spec round. Q&A.                                                                                                                                                                                                    |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Exercise 1 prompt (Act mode, on slide)
 
-### Deployment
+> Build me a flashcard study app in this React project. I should be able to flip cards and go to the next one.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+This intentionally yields _something_. Failure modes participants discover fast: no add/edit, no persistence, no "got it / review again", one deck only, no progress indicator. Use those failures as the motivation for Exercise 2.
 
-### `npm run build` fails to minify
+### Exercise 2 prompt (Plan mode, hand out after the spec-driven intro)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+> I want a flashcard study app. Users create multiple decks, each with cards (front/back text). In study mode, they review a deck one card at a time, flip to see the answer, then mark "got it" or "review again". Cards marked "review again" come back in the same session. Everything persists in localStorage. Single-page React app, no backend.
+>
+> Before writing any code:
+>
+> 1. Write `architecture.md` covering the data model (TypeScript-style interfaces), the component tree, the state-flow between screens, and the localStorage schema. Use Mermaid diagrams where they help.
+> 2. Write `todo.md` as a checklist of implementation steps, ordered so each step leaves the app in a runnable state.
+> 3. Pause and show me both files before you proceed.
+>
+> After I approve, implement step-by-step. Update `todo.md` by checking off each item as you finish it. If you discover a planning gap mid-implementation, edit `architecture.md` and call out the change.
+
+The visible artifacts (architecture.md, todo.md, ticked checkboxes) are the wow moment — participants watch the agent "organize itself".
+
+### One-time setup before each workshop
+
+1. **Edit `workshop.config.json`**:
+   - `submitUrl`: a Google Doc set to "Anyone with the link can edit". One per workshop run.
+   - `litellmBaseUrl`: your LiteLLM proxy, with the `/anthropic` suffix (e.g. `https://litellm.example.com/anthropic`).
+   - `model`: e.g. `claude-sonnet-4-6`.
+
+2. **Stand up LiteLLM** with one upstream Anthropic or Azure AI Foundry key. The upstream key's **tier** is the load-bearing detail: ~20 participants doing agentic coding simultaneously needs roughly Anthropic Tier 4 (or equivalent Foundry provisioned throughput). Anything lower and people get throttled mid-prompt.
+
+3. **Mint keys** the morning of:
+
+   ```
+   LITELLM_URL=https://litellm.example.com \
+   LITELLM_ADMIN_KEY=sk-admin-... \
+   ./scripts/mint-keys.sh participants.txt
+   ```
+
+   `participants.txt` is one name per line. The script prints a CSV of `name,key`. Print these on slips, paste into 1:1 DMs, or hand out stickers.
+
+4. **Open the submission doc**, set sharing to "Anyone with the link can edit", and write a one-line instruction at the top: _"Paste your name and link below."_ Add a starter line as an example.
+
+### Dry-run checklist before announcing
+
+- [ ] Open a fresh Codespace from this repo. Paste a freshly-minted virtual key into Cline. Confirm setting comes from `.vscode/settings.json` (`cat .vscode/settings.json`) and that Cline's base URL is already filled in.
+- [ ] Run Exercise 1 in Act mode end-to-end. Time it.
+- [ ] Run `npm run share`. Confirm the URL pastes cleanly into the submission doc and is reachable from an incognito browser without a GitHub session.
+- [ ] `npm run reset-app`. Confirm `src/App.js` is back to the blank shell and any old `architecture.md` / `todo.md` is gone.
+- [ ] Run Exercise 2 in Plan mode. Confirm Cline writes `architecture.md` and `todo.md`, pauses, then ticks items off in Act.
+- [ ] Fire 5 simultaneous Exercise 1 runs from 5 codespaces. Watch the LiteLLM dashboard for rate-limit errors. Scale upstream tier _before_ the workshop, not during.
+- [ ] Test key revocation: revoke a virtual key mid-conversation in Cline, confirm a clear error (not a silent hang).
+
+### Failure modes to expect during the vibe round
+
+| Symptom                                                         | What participants experience                  | What to say                                                 |
+| --------------------------------------------------------------- | --------------------------------------------- | ----------------------------------------------------------- |
+| App crashes on hot-reload after Cline edits multiple files      | Blank screen, console errors                  | "Refresh the tab. This is one reason planning matters."     |
+| Cline burns 10k tokens generating a single mega-prompt          | Slow, sometimes hangs at end of round         | "We'll come back to why spec mode is cheaper too."          |
+| The "flashcard app" ends up as one static deck with no add/edit | Demo looks fine but isn't really a study tool | This is the point of the round. Land it in the showcase.    |
+| Participant accidentally clicks "Plan mode" in round B          | Cline doesn't write code                      | Show them the toggle. Briefly tease "we'll use that later". |
+
+### Future-you considerations
+
+- **Cline's settings keys may change.** If `cline.apiProvider` / `cline.anthropicBaseUrl` / `cline.modelId` stop being honored, re-check the extension's `package.json` contributions on the marketplace. The seed script will write whatever keys you give it — the schema is the load-bearing piece.
+- **Switching providers later** (OpenRouter, raw Foundry, direct Anthropic): only `workshop.config.json` needs to change. The devcontainer + scripts are provider-agnostic.
+
+---
+
+## What's actually running
+
+This is a Create React App project. `npm start` runs the dev server on port 3000. The devcontainer forwards port 3000 publicly so anyone with the codespace URL can view it. That's how the showcase works.
+
+The starter is intentionally minimal — `src/App.js` just renders "Hello, workshop!" so the LLM doesn't anchor on prior code when participants give it a 1-line prompt.

@@ -10,18 +10,19 @@
       "visibility": "public"
     }
   },
-  "postAttachCommand": "gh codespace ports visibility 3000:public -c $CODESPACE_NAME",
   "containerEnv": {
     "CHOKIDAR_USEPOLLING": "true"
   },
-  "postCreateCommand": "npm ci || npm install",
+  "postCreateCommand": "sudo apt-get update -y && sudo apt-get install -y jq && (npm ci || npm install) && bash scripts/seed-cline-settings.sh && bash scripts/set-title.sh",
+  "postAttachCommand": "gh codespace ports visibility 3000:public -c $CODESPACE_NAME >/dev/null 2>&1 || true; bash scripts/welcome.sh",
   "customizations": {
     "vscode": {
       "extensions": [
         "saoudrizwan.claude-dev"
       ],
       "settings": {
-        "files.autoSave": "onFocusChange"
+        "files.autoSave": "onFocusChange",
+        "workbench.startupEditor": "readme"
       }
     }
   },
