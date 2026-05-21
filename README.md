@@ -1,14 +1,16 @@
 # AI Coding Workshop
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/msblei/AI_coding_workshop?quickstart=1)
-
 ---
 
 ## Instructions for participants
 
 Welcome! Follow these steps in order. If you get stuck, raise your hand.
 
-### 1. Click "Open in GitHub Codespaces" at the top.
+### 1. Click "Open in GitHub Codespaces".
+
+<a href="https://codespaces.new/msblei/AI_coding_workshop?quickstart=1" target="_blank">
+  <img src="https://github.com/codespaces/badge.svg" alt="Open in GitHub Codespaces">
+</a>
 
 This opens a new page, log in with your GitHub account (if not already logged in) and then click "Create new codespace".
 
