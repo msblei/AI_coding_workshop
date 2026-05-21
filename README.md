@@ -6,7 +6,7 @@
 
 Welcome! Follow these steps in order. If you get stuck, raise your hand.
 
-### 1. Click "Open in GitHub Codespaces".
+### 1. Click "Open in GitHub Codespaces"
 
 <a href="https://codespaces.new/msblei/AI_coding_workshop?quickstart=1" target="_blank">
   <img src="https://github.com/codespaces/badge.svg" alt="Open in GitHub Codespaces">
@@ -16,43 +16,35 @@ This opens a new page, log in with your GitHub account (if not already logged in
 
 ![alt text](resources/create_codespace.png)
 
-After this, these instructions will be availble inside the new page, so don't worry about closing this page.
+After this, wait till you see these instructions again in the new page.
 
-### 2. Find the robot icon.
+### 2. Wait for welcome screen
 
-On the **left side of the screen**, look for the icon that looks like a small robot. Click it. A panel opens on the side.
+Wait (up to five minutes) until you see the welcome screen. If even after a while you do not see this message, please talk to an instructor. screenshot here
 
-### 3. Paste the key you were given.
+### 3. Open the document with the API key
 
-The workshop leaders handed you a key — a long string of letters and numbers. Paste it into the box in the panel, then click "Save". You should now see a chat box.
-
-### 4. Send this message to the robot:
-
-> Build me a flashcard study app in this React project. I should be able to flip cards and go to the next one.
-
-### 5. Watch what happens.
-
-The robot writes code by itself. You don't have to do anything. It might take a minute or two. Files will appear on the left.
-
-### 6. Try your app.
-
-A new browser tab opens with your app inside it. Click around. **What works? What's broken? What's silly?**
-
-### 7. Share your link.
-
-When your codespace finished setting up, a **Welcome** message printed at the bottom of the screen with your live URL. It looks like `https://something-3000.app.github.dev`. Copy it.
-
-(If you can't find the welcome message, the same URL is shown in the **Ports** tab at the bottom of the screen, or in the address bar of the browser tab where your app is running.)
-
-Now paste your name and the URL into the workshop submission doc:
+TODO: instructions here with actual google docs url taken from config if possible here. first, add ythe url just printed to the terminal and second copy the api key and follow instructions
 
 👉 **[Workshop submission doc](https://docs.google.com/document/d/1cgWG_Foie4dn7LOJ9J-9Qep2sB2R1cD0maejTJbVMjY/edit?usp=sharing)**
 
-Example line to paste: `Marius — https://abc123-3000.app.github.dev`
+### 2. Find the robot icon
 
-### 8. Wait for the next exercise.
+On the **left side of the screen**, look for the icon that looks like a small robot. Click it. A panel opens on the side. Add the API key. multiple screenshots here
 
-The workshop leaders will introduce a new way to work with the robot. We'll build a second app, but smarter this time.
+### 4. Send a test message
+
+> Build me a flashcard study app in this React project. I should be able to flip cards and go to the next one.
+
+If there is any answer, the configuration worked and you are good to use the LLM. screenshot here
+
+### 5. Open the app
+
+With the url from the terminal, open it in a new window and aasure there is an application showing. screenshot here
+
+### 6. Wait for instructions.
+
+The workshop instructors will introduce a new task. We'll build a second app, but smarter this time.
 
 ---
 
