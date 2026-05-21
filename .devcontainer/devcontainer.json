@@ -6,7 +6,7 @@
   "portsAttributes": {
     "3000": {
       "label": "React dev server",
-      "onAutoForward": "openBrowser",
+      "onAutoForward": "silent",
       "visibility": "public"
     }
   },

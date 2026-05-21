@@ -20,7 +20,7 @@ EOF
 # Pipe CRA's output through awk so we can inject our codespace URL right
 # after each successful compile. The localhost / network URLs CRA prints
 # by default are useless in Codespaces — participants need this URL instead.
-npx react-scripts start 2>&1 | awk -v url="$URL" '
+BROWSER=none npx react-scripts start 2>&1 | awk -v url="$URL" '
 {
   print $0
   fflush()
