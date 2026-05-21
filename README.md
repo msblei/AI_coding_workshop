@@ -115,17 +115,9 @@ This intentionally yields _something_. Failure modes participants discover fast:
 
 ### Exercise 2 prompt (Plan mode, hand out after the spec-driven intro)
 
-> I want a flashcard study app. Users create multiple decks, each with cards (front/back text). In study mode, they review a deck one card at a time, flip to see the answer, then mark "got it" or "review again". Cards marked "review again" come back in the same session. Everything persists in localStorage. Single-page React app, no backend.
->
-> Before writing any code:
->
-> 1. Write `architecture.md` covering the data model (TypeScript-style interfaces), the component tree, the state-flow between screens, and the localStorage schema. Use Mermaid diagrams where they help.
-> 2. Write `todo.md` as a checklist of implementation steps, ordered so each step leaves the app in a runnable state.
-> 3. Pause and show me both files before you proceed.
->
-> After I approve, implement step-by-step. Update `todo.md` by checking off each item as you finish it. If you discover a planning gap mid-implementation, edit `architecture.md` and call out the change.
+> I want a flashcard study app. Users create multiple decks, each with cards (front/back text). In study mode, they review a deck one card at a time, flip to see the answer, then mark "got it" or "review again". Cards marked "review again" come back in the same session. Make everything a single page React app, no other components needed.
 
-The visible artifacts (architecture.md, todo.md, ticked checkboxes) are the wow moment — participants watch the agent "organize itself".
+The visible artifacts under `cline_plan/` (architecture.md, todo.md, ticked checkboxes) are the wow moment — participants watch the agent "organize itself". The `.clinerules` file enforces the folder convention so the planning files don't scatter at the repo root.
 
 ### One-time setup before each workshop
 

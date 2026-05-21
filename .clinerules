@@ -1,0 +1,27 @@
+# Cline rules for this workshop
+
+## Never start the dev server yourself
+
+The dev server is always running already on `http://localhost:3000`. The user
+starts it themselves with `npm start` in a terminal before chatting with you.
+
+Do **not** run `npm start`, `npm run dev`, `react-scripts start`, `serve`, or
+any other command that launches a server.
+
+When you need to verify a change, assume `http://localhost:3000` is live.
+
+## Plan-mode artifacts go in `cline_plan/`
+
+When you are in **Plan mode** and produce planning content — thoughts, todos,
+architecture notes, data models, component trees, state diagrams, anything
+markdown — write them as files under a folder named `cline_plan/` at the repo
+root.
+
+Examples:
+
+- `cline_plan/architecture.md`
+- `cline_plan/todo.md`
+- `cline_plan/data-model.md`
+
+Create the `cline_plan/` folder if it doesn't exist. Don't scatter planning
+files at the repo root.

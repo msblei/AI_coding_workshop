@@ -58,6 +58,10 @@ EOF
 
 # Wipe any files Cline wrote during the previous round that we don't want
 # carried into the next exercise. Keep CRA's scaffolding intact.
+if [[ -d "$ROOT/cline_plan" ]]; then
+  rm -rf "$ROOT/cline_plan"
+  echo "  removed cline_plan/"
+fi
 for f in architecture.md todo.md TODO.md ARCHITECTURE.md; do
   if [[ -f "$ROOT/$f" ]]; then
     rm -f "$ROOT/$f"
