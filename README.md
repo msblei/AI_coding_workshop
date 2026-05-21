@@ -4,13 +4,13 @@
 
 ## Instructions for participants
 
-Welcome! There are **three setup steps**. After each one, you should see a ✅ checkpoint. If you don't see it, raise your hand.
+Welcome! There are **three setup steps**. If you are stuck at any, please raise your hand.
 
 ---
 
 ### Step 1: Open the codespace
 
-1. Click the badge below.
+1. Click the badge below. Ctrl + click to open in a new window.
 
    <a href="https://codespaces.new/msblei/AI_coding_workshop?quickstart=1" target="_blank">
      <img src="https://github.com/codespaces/badge.svg" alt="Open in GitHub Codespaces">
@@ -26,37 +26,55 @@ Welcome! There are **three setup steps**. After each one, you should see a ✅ c
 
 ---
 
-### Step 2: Set up your API key
+### Step 2: Set up your AI coding assistant
 
 1. Open the workshop document:
 
-   👉 **[Workshop document](https://docs.google.com/document/d/1cgWG_Foie4dn7LOJ9J-9Qep2sB2R1cD0maejTJbVMjY/edit?usp=sharing)**
+   **[Workshop document](https://docs.google.com/document/d/1cgWG_Foie4dn7LOJ9J-9Qep2sB2R1cD0maejTJbVMjY/edit?usp=sharing)**
 
 2. Find the row with your name in the document.
    - **Paste your app URL** (from the welcome banner in step 1) into your row.
-   - **Copy your API key** from your row — you'll need it next.
+   - Leave the document open as you will need to copy both the Base URL and the API key later on.
 
-   ![Workshop document with names, keys, and URLs](resources/workshop_doc.png)
+   ![Workshop document with names, keys, and URLs](resources/google_document.png)
 
-3. Back in the codespace, click the **robot icon** on the left sidebar. A panel opens. Paste your API key into the box and click **Save**.
+3. Back in the codespace, click the **robot icon** on the left sidebar. A panel opens.
 
    ![Cline icon in the sidebar](resources/cline_icon.png)
 
-   ![Paste the API key into Cline](resources/cline_key_input.png)
+   Select "Bring my own API Key"
 
-4. In the Cline chat box, send this message:
+   ![Select bring your own key for Cline](resources/cline_bring_your_own_key.png)
+
+   Add the following information:
+
+   API Provider: `OpenAI Compatible`
+
+   Base URL: From the Google Doc before
+
+   OpenAI Compatible API Key: From the Google Doc before
+
+   Model ID: `gpt-5.4`
+
+   ![Paste the API key into Cline](resources/cline_configuration.png)
+
+   Click "Continue".
+
+4. In the Cline chat box, send any message:
+
+   E.g.
 
    > Hello! Say hi back so I know you're working.
 
 5. Wait a few seconds for Cline to reply.
 
-   ![Cline replying to the test message](resources/cline_response.png)
+   ![Cline replying to the test message](resources/cline_success.png)
 
 ---
 
 ### Step 3: Start the app
 
-1. Open a new terminal. At the top of the screen, click **Terminal → New Terminal**.
+1. Switch to the terminal in the bottom again.
 
 2. In the terminal, type the following and press Enter:
 
@@ -64,32 +82,19 @@ Welcome! There are **three setup steps**. After each one, you should see a ✅ c
    npm start
    ```
 
-3. A banner prints with your app URL and an arrow (👉). Wait until you see **"Compiled successfully!"** below it — about 30 seconds.
+3. Wait until you see **"Compiled successfully!"** below it — about 30 seconds.
 
-4. Click your app URL (or copy-paste it into a new browser tab). The page should say **"✅ Everything works!"**.
+4. Click your app URL (or copy-paste it into a new browser tab). The page should say **"Everything works!"**.
 
-   ![App running in a new tab](resources/app_running.png)
+5. Wait for further instructions.
+
+---
 
 ---
 
 ## Instructions for instructors
 
 Everything below this line is for the people running the workshop.
-
-> **Workshop document URL** lives in **step 2** of the participant section above. That is the single source of truth — edit it there per workshop run. Nothing else references it.
-
-### Repo layout
-
-| File / dir                        | Purpose                                                                                                                                                                                                                                                                    |
-| --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `workshop.config.json`            | Single source of truth for LiteLLM base URL and model. Edit per workshop instance.                                                                                                                                                                                         |
-| `.devcontainer/devcontainer.json` | Preinstalls Cline, installs `jq`, runs the seed + welcome scripts.                                                                                                                                                                                                         |
-| `scripts/seed-cline-settings.sh`  | On `postCreate`, reads `workshop.config.json` and writes `.vscode/settings.json` so Cline opens pre-pointed at your LiteLLM proxy.                                                                                                                                         |
-| `scripts/welcome.sh`              | Terminal banner on every attach. Checkpoint 1 for participants — prints app URL and "Setup complete!" Nothing more.                                                                                                                                                        |
-| `scripts/start.sh`                | What `npm start` calls. Prints the codespace URL prominently with an arrow, then execs `react-scripts start`. Replaces the auto-task approach (which got blocked by VS Code's trusted-workspaces prompt).                                                                  |
-| `scripts/reset-app.sh`            | What `npm run reset-app` calls. Restores `src/App.js` and `src/App.css` to the "Everything works!" starter (inlined in the script), removes any `architecture.md` / `todo.md` leftover, and re-applies the browser tab title.                                              |
-| `scripts/set-title.sh`            | Sets `<title>` in `public/index.html` to the participant's name so each browser tab in the showcase grid is labeled. Runs on `postCreate`. Falls back through `$WORKSHOP_PARTICIPANT_NAME` → `git config user.name` → `$GITHUB_USER` → `$CODESPACE_NAME` → "Workshop App". |
-| `scripts/mint-keys.sh`            | **Organizer-only.** Mints N LiteLLM virtual keys from a `participants.txt` list. Prints CSV ready to paste into the workshop document.                                                                                                                                     |
 
 ### Workshop flow (120 min)
 
@@ -124,51 +129,7 @@ The visible artifacts (architecture.md, todo.md, ticked checkboxes) are the wow 
 
 ### One-time setup before each workshop
 
-1. **Create the workshop document.** A Google Doc set to "Anyone with the link can edit". Layout it as a 3-column table: `Name | API Key | App URL`. Pre-fill the Name column with participants. Leave API Key and App URL columns empty for now.
-
-2. **Paste the doc URL into step 2 of the participant section above** (the `[Workshop document](...)` link). One commit per workshop run.
-
-3. **Edit `workshop.config.json`**:
-   - `litellmBaseUrl`: your LiteLLM proxy, with the `/anthropic` suffix (e.g. `https://litellm.example.com/anthropic`).
-   - `model`: e.g. `claude-sonnet-4-6` or `claude-opus-4-7`.
-
-4. **Stand up LiteLLM** with one upstream Anthropic or Azure AI Foundry key. The upstream key's **tier** is the load-bearing detail: ~20 participants doing agentic coding simultaneously needs roughly Anthropic Tier 4 (or equivalent Foundry provisioned throughput). Anything lower and people get throttled mid-prompt.
-
-5. **Mint keys** the morning of:
-
-   ```
-   LITELLM_URL=https://litellm.example.com \
-   LITELLM_ADMIN_KEY=sk-admin-... \
-   ./scripts/mint-keys.sh participants.txt
-   ```
-
-   `participants.txt` is one name per line. The script prints a CSV of `name,key`. Paste this into the workshop document's Name and API Key columns.
-
-### Dry-run checklist before announcing
-
-- [ ] Open a fresh Codespace. Confirm the welcome banner with the live URL appears in the integrated terminal once setup finishes. **No "automatic tasks" prompt should appear anywhere in the flow.** (Checkpoint 1.)
-- [ ] Paste a freshly-minted virtual key into Cline. Confirm `.vscode/settings.json` already has the LiteLLM base URL and model filled in (`cat .vscode/settings.json`). Send the "say hi back" message — confirm Cline replies. (Checkpoint 2.)
-- [ ] Open a new terminal, run `npm start`. Confirm the wrapper banner shows the URL with an arrow. Wait for "Compiled successfully!". Open the URL — confirm "✅ Everything works!" renders. (Checkpoint 3.)
-- [ ] Run Exercise 1 in Act mode end-to-end. Confirm the app updates live as Cline edits files. Time it.
-- [ ] Paste the live URL into the workshop document's App URL column. Open it from an incognito browser with no GitHub session — confirm it's reachable.
-- [ ] `npm run reset-app`. Confirm `src/App.js` is back to "Everything works!" and any old `architecture.md` / `todo.md` is gone.
-- [ ] Run Exercise 2 in Plan mode. Confirm Cline writes `architecture.md` and `todo.md`, pauses, then ticks items off in Act.
-- [ ] Fire 5 simultaneous Exercise 1 runs from 5 codespaces. Watch the LiteLLM dashboard for rate-limit errors. Scale upstream tier _before_ the workshop, not during.
-- [ ] Test key revocation: revoke a virtual key mid-conversation in Cline, confirm a clear error (not a silent hang).
-
-### Failure modes to expect during the vibe round
-
-| Symptom                                                         | What participants experience                  | What to say                                                 |
-| --------------------------------------------------------------- | --------------------------------------------- | ----------------------------------------------------------- |
-| App crashes on hot-reload after Cline edits multiple files      | Blank screen, console errors                  | "Refresh the tab. This is one reason planning matters."     |
-| Cline burns 10k tokens generating a single mega-prompt          | Slow, sometimes hangs at end of round         | "We'll come back to why spec mode is cheaper too."          |
-| The "flashcard app" ends up as one static deck with no add/edit | Demo looks fine but isn't really a study tool | This is the point of the round. Land it in the showcase.    |
-| Participant accidentally clicks "Plan mode" in round B          | Cline doesn't write code                      | Show them the toggle. Briefly tease "we'll use that later". |
-
-### Future-you considerations
-
-- **Cline's settings keys may change.** If `cline.apiProvider` / `cline.anthropicBaseUrl` / `cline.modelId` stop being honored, re-check the extension's `package.json` contributions on the marketplace. The seed script will write whatever keys you give it — the schema is the load-bearing piece.
-- **Switching providers later** (OpenRouter, raw Foundry, direct Anthropic): only `workshop.config.json` needs to change. The devcontainer + scripts are provider-agnostic.
+Before the workshop API keys for whichever model need to be provided. Keep in mind that rate limits apply, e.g. at most 1M tokens per key on Azure OpenAI service. Hence creating multiple keys might be necessary.
 
 ---
 
@@ -176,4 +137,4 @@ The visible artifacts (architecture.md, todo.md, ticked checkboxes) are the wow 
 
 This is a Create React App project. `npm start` runs the dev server on port 3000 (via the `scripts/start.sh` wrapper that prints the URL first). The devcontainer forwards port 3000 publicly so anyone with the codespace URL can view it.
 
-The starter `src/App.js` renders "✅ Everything works!" — visible confirmation of Checkpoint 3 and a neutral starting point so the LLM doesn't anchor on prior code when participants give it a one-line prompt.
+The starter `src/App.js` renders "Everything works!" — visible confirmation of Checkpoint 3 and a neutral starting point so the LLM doesn't anchor on prior code when participants give it a one-line prompt.
