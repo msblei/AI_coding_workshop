@@ -1,0 +1,20 @@
+# Phase 0: prove the real IDE works through the client firewall.
+# Two hostnames, both plain HTTPS/443 on your own domain (auto Let's Encrypt):
+#   test.<domain>      -> the code-server IDE (VS Code + Cline in the browser)
+#   test-app.<domain>  -> the React dev server (live preview / public URL)
+#
+# DOMAIN and ACME_EMAIL come from the environment (set in docker-compose.yml).
+# Caddy handles WebSocket upgrades automatically, so code-server and CRA's HMR
+# socket both work with no extra config.
+
+{
+	email {$ACME_EMAIL}
+}
+
+test.{$DOMAIN} {
+	reverse_proxy code-server-test:8080
+}
+
+test-app.{$DOMAIN} {
+	reverse_proxy code-server-test:3000
+}

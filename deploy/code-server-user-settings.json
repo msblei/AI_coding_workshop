@@ -1,0 +1,9 @@
+{
+  "security.workspace.trust.enabled": false,
+  "workbench.startupEditor": "readme",
+  "files.autoSave": "onFocusChange",
+  "chat.disableAIFeatures": true,
+  "chat.commandCenter.enabled": false,
+  "github.copilot.enable": { "*": false },
+  "workbench.activityBar.location": "default"
+}

@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Dev-server config for running behind a reverse proxy (self-hosted code-server)
+# and in Codespaces: bind publicly, serve HMR over the page's own origin (wss
+# through the proxy), and skip host-checking. Scoped here so it applies to the
+# React dev server only — code-server reads $PORT too and must stay on 8080.
+export HOST=0.0.0.0
+export PORT=3000
+export DANGEROUSLY_DISABLE_HOST_CHECK=true
+export WDS_SOCKET_PORT=0
+export CHOKIDAR_USEPOLLING=true
+
 URL="(your URL will appear once you're in the codespace)"
 if [[ -n "${CODESPACE_NAME:-}" ]]; then
   URL="https://${CODESPACE_NAME}-3000.app.github.dev"

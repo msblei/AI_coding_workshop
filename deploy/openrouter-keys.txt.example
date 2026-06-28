@@ -1,0 +1,11 @@
+# OpenRouter API keys for the workshop — copy to deploy/openrouter-keys.txt.
+# One key per line. Lines starting with # and blank lines are ignored.
+#
+# Put as many as you like:
+#   - 1 key   -> shared by all participants
+#   - N keys  -> distributed round-robin across the N containers
+#
+# Create them at https://openrouter.ai/keys (ideally with a credit limit each).
+# This file (without .example) is git-ignored — never commit real keys.
+
+sk-or-v1-EXAMPLE-replace-me

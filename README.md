@@ -1,84 +1,78 @@
 # AI Coding Workshop
 
+A hands-on workshop where participants build a small React app with the **Cline** AI coding
+assistant — first by "vibe coding", then with a spec-driven plan→act flow.
+
+## Two ways to run this workshop
+
+| Mode | Who opens what | Guide |
+|------|----------------|-------|
+| **GitHub Codespaces** | Participants click the badge below and a browser VS Code spins up. | This file (below). |
+| **Self-hosted** (code-server) | Organizer runs a fleet of browser IDEs on one VM; participants claim a spot from a landing page. | [`deploy/README.md`](deploy/README.md) |
+
+> Organizers: the self-hosted path exists for networks where Codespaces is blocked (its tunnel
+> transport is often filtered by corporate proxies). See [`deploy/README.md`](deploy/README.md).
+
 ---
 
-## Instructions for participants
+## Instructions for participants (Codespaces)
 
-Welcome! There are **three setup steps**. If you are stuck at any, please raise your hand.
-
----
+Welcome! There are **three steps**. If you get stuck on any, please raise your hand.
 
 ### Step 1: Open the codespace
 
-1. Click the badge below. Ctrl + click to open in a new window.
+1. Click the badge below (Ctrl/Cmd-click to open in a new tab):
 
    <a href="https://codespaces.new/msblei/AI_coding_workshop?quickstart=1" target="_blank">
      <img src="https://github.com/codespaces/badge.svg" alt="Open in GitHub Codespaces">
    </a>
 
-2. Sign in to GitHub if asked. On the next page, click **"Create new codespace"**.
+2. Sign in to GitHub if asked, then click **"Create new codespace"**.
 
    ![Create codespace button](resources/create_codespace.png)
 
-3. **Wait up to 5 minutes** for setup to finish. You'll know it's done when a welcome banner appears in the **terminal at the bottom of the screen**.
+3. **Wait up to 5 minutes** for setup. It's ready when a welcome banner appears in the **terminal**
+   at the bottom of the screen.
 
    ![Welcome banner in the terminal](resources/welcome_screen.png)
 
----
+### Step 2: Set up Cline (OpenRouter)
 
-### Step 2: Set up your AI coding assistant
+<!-- This section is identical to the self-hosted guide in deploy/README-workspace.md.
+     If you change it here, change it there too. -->
+1. Copy your **OpenRouter API key** (find it in the workshop document next to your name).
 
-1. Open the workshop document:
 
-   **[Workshop document](https://docs.google.com/document/d/1cgWG_Foie4dn7LOJ9J-9Qep2sB2R1cD0maejTJbVMjY/edit?usp=sharing)**
+   https://docs.google.com/document/d/1cgWG_Foie4dn7LOJ9J-9Qep2sB2R1cD0maejTJbVMjY/edit?tab=t.0
 
-2. Find the row with your name in the document.
-   - **Paste your app URL** (from the welcome banner in step 1) into your row.
-   - Leave the document open as you will need to copy both the Base URL and the API key later on.
+   ![Workshop document with names and keys](resources/workshop_doc.png)
 
-   ![Workshop document with names, keys, and URLs](resources/google_document.png)
+   (Fake key in this screenshot)
 
-   (Key in screenshot is a fake key)
-
-3. Back in the codespace, click the **robot icon** on the left sidebar. A panel opens.
+2. Click the **Cline robot icon** in the left sidebar. A panel opens.
 
    ![Cline icon in the sidebar](resources/cline_icon.png)
 
-   Select "Bring my own API Key"
 
-   ![Select bring your own key for Cline](resources/cline_bring_your_own_key.png)
+3. Choose **"Use your own API key"**, then set **API Provider** to **OpenRouter**.
 
-   Add the following information:
+   <!-- TODO screenshot: Cline API Provider dropdown set to "OpenRouter" -> resources/cline_openrouter_provider.png -->
+   ![Select OpenRouter as the provider](resources/cline_openrouter_provider.png)
 
-   API Provider: `OpenAI Compatible`
 
-   Base URL: From the Google Doc before
+4. Set the **Model** to `anthropic/claude-sonnet-4`, then save.
 
-   OpenAI Compatible API Key: From the Google Doc before
+   <!-- TODO screenshot: Cline OpenRouter key + model filled in -> resources/cline_openrouter_config.png -->
+   ![Paste the key and pick a model](resources/cline_openrouter_provider.png)
 
-   Model ID: `gpt-5.4`
-
-   ![Paste the API key into Cline](resources/cline_configuration.png)
-
-   Click "Continue".
-
-4. In the Cline chat box, send any message:
-
-   E.g.
-
-   > Hello! Say hi back so I know you're working.
-
-5. Wait a few seconds for Cline to reply.
+5. In the Cline chat box, send any message (e.g. *"Hello! Say hi back so I know you're working."*)
+   and wait a few seconds for a reply.
 
    ![Cline replying to the test message](resources/cline_success.png)
 
----
-
 ### Step 3: Start the app
 
-1. Switch to the terminal in the bottom again.
-
-2. In the terminal, type the following and press Enter:
+1. In the terminal at the bottom, type and press Enter:
 
    ```
    npm start
@@ -86,55 +80,55 @@ Welcome! There are **three setup steps**. If you are stuck at any, please raise 
 
    ![Type npm start](resources/npm_start.png)
 
-3. Wait until you see **"Compiled successfully!"** below it — about 30 seconds.
+2. Wait for **"Compiled successfully!"** (about 30 seconds).
 
-4. Click your app URL (or copy-paste it into a new browser tab). If you see a security warning, click "Continue".
+3. Click your app URL (from the welcome banner). If you see a security warning, click **"Continue"**.
 
-   ![Type npm start](resources/github_warning.png)
+   ![Security warning — click Continue](resources/github_warning.png)
 
-The page should say **"Everything works!"**.
-
-5. Wait for further instructions.
-
----
+   The page should say **"Everything works!"**. Now wait for instructions.
 
 ---
 
 ## Instructions for instructors
 
-Everything below this line is for the people running the workshop.
+Everything below is for the people running the workshop.
 
 ### Workshop flow (120 min)
 
-| Block                       | Time    | Activity                                                                                                                                                                                                                                  |
-| --------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **A. Setup**                | 0–15    | Participants work through the three checkpoint steps in this README. Make sure everyone arrives at Checkpoint 3 ("Everything works!") before moving on.                                                                                   |
-| **B. Vibe round**           | 15–45   | Intro to Cline's Plan/Act toggle (set to **Act** for this round). Suggested Exercise 1 prompt see below. Participants iterate freely. Expected: working apps, but sometimes unexpected behaviour.                                         |
-| **C. Showcase + diagnosis** | 45–60   | Click through ~5 submissions live (from the workshop doc's URL column). Discussion: "What's unexpected? Why? What worked? What did not?" Land the takeaway: vibe coding produces _something_ but structure rots fast as features pile on. |
-| **D. Spec-driven intro**    | 60–75   | Live demo. Switch Cline to **Plan mode**. Run the suggested Exercise 2 spec prompt. Narrate: "no code yet, just a plan we can argue with." Refine the plan with 2–3 follow-ups. Then flip to Act. Optional: run `npm run reset-app`       |
-| **E. Build round**          | 75–110  | Participants run their own plan→act cycle. Float around.                                                                                                                                                                                  |
-| **F. Showcase + wrap**      | 110–120 | Click through again. Side-by-side: vibe round vs spec round. Q&A.                                                                                                                                                                         |
+| Block | Time | Activity |
+| ----- | ---- | -------- |
+| **A. Setup** | 0–15 | Participants work through the three steps above. Make sure everyone reaches "Everything works!" before moving on. |
+| **B. Vibe round** | 15–45 | Intro Cline's Plan/Act toggle (set to **Act**). Use Exercise 1 below. Participants iterate freely — working apps, but often unexpected behaviour. |
+| **C. Showcase + diagnosis** | 45–60 | Click through ~5 submissions live. Discussion: "What's unexpected? Why?" Takeaway: vibe coding produces _something_, but structure rots as features pile on. |
+| **D. Spec-driven intro** | 60–75 | Live demo. Switch Cline to **Plan mode**. Run Exercise 2's spec prompt. Narrate: "no code yet, just a plan we can argue with." Refine, then flip to Act. Optional: `npm run reset-app`. |
+| **E. Build round** | 75–110 | Participants run their own plan→act cycle. Float around. |
+| **F. Showcase + wrap** | 110–120 | Click through again. Side-by-side: vibe round vs spec round. Q&A. |
 
 ### Exercise 1 prompt (Act mode, on slide)
 
 > Build me a flashcard study app in this React project. I should be able to flip cards and go to the next one.
 
-This intentionally yields _something_. Failure modes participants discover fast: no add/edit, no persistence, no "got it / review again", one deck only, no progress indicator. Use those failures as the motivation for Exercise 2.
+This intentionally yields _something_. Failure modes participants find fast: no add/edit, no
+persistence, no "got it / review again", one deck only, no progress indicator — motivation for Exercise 2.
 
 ### Exercise 2 prompt (Plan mode, hand out after the spec-driven intro)
 
-> I want a flashcard study app. Users create multiple decks, each with cards (front/back text). In study mode, they review a deck one card at a time, flip to see the answer, then mark "got it" or "review again". Cards marked "review again" come back in the same session. Make everything a single page React app, no other components needed.
+> I want a flashcard study app. Users create multiple decks, each with cards (front/back text). In study
+> mode, they review a deck one card at a time, flip to see the answer, then mark "got it" or "review
+> again". Cards marked "review again" come back in the same session. Make everything a single page React
+> app, no other components needed.
 
-The visible artifacts under `cline_plan/` (architecture.md, todo.md, ticked checkboxes) are the wow moment — participants watch the agent "organize itself". The `.clinerules` file enforces the folder convention so the planning files don't scatter at the repo root.
+The visible artifacts under `cline_plan/` (architecture.md, todo.md, ticked checkboxes) are the wow
+moment — participants watch the agent organize itself. The `.clinerules` file enforces that folder
+convention so planning files don't scatter at the repo root.
 
-### One-time setup before each workshop
+### Before each workshop
 
-Before the workshop API keys for whichever model need to be provided. Keep in mind that rate limits apply, e.g. at most 1M tokens per key on Azure OpenAI service. Hence creating multiple keys might be necessary.
-
----
-
-## What's actually running
-
-This is a Create React App project. `npm start` runs the dev server on port 3000 (via the `scripts/start.sh` wrapper that prints the URL first). The devcontainer forwards port 3000 publicly so anyone with the codespace URL can view it.
-
-The starter `src/App.js` renders "Everything works!" — visible confirmation of Checkpoint 3 and a neutral starting point so the LLM doesn't anchor on prior code when participants give it a one-line prompt.
+- Provide OpenRouter API key(s) for participants (a credit limit per key is wise). Put them in the
+  workshop document next to each participant's name.
+- This is a Create React App project. `npm start` runs the dev server on port 3000 (via
+  `scripts/start.sh`, which prints the URL first). The starter `src/App.js` renders "Everything works!"
+  — a neutral starting point so the model doesn't anchor on prior code.
+- For the **self-hosted** path (firewalled networks, no per-participant GitHub needed), see
+  [`deploy/README.md`](deploy/README.md).

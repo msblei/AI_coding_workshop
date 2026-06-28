@@ -1,0 +1,7 @@
+# Build context excludes — keep the workspace image lean and reproducible.
+.git
+node_modules
+build
+npm-debug.log*
+.DS_Store
+.vscode/settings.json

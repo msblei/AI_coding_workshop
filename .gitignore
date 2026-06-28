@@ -21,3 +21,19 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# deploy: secrets + generated files (never commit real keys/passwords)
+deploy/.env
+deploy/users.txt
+deploy/slots.json
+deploy/openrouter-keys.txt
+deploy/docker-compose.gen.yml
+deploy/Caddyfile.gen
+
+# python venv accidentally created at the repo root (+ ad-hoc key test script)
+bin/
+lib/
+include/
+pyvenv.cfg
+__pycache__/
+check_key.py

@@ -1,0 +1,45 @@
+# Phase 0 stack: Caddy (TLS/443) + ONE code-server-with-Cline container.
+# Purpose: validate that the real browser IDE loads and stays connected from a
+# managed client device, before we scale to the 10-user fleet.
+#
+#   cd deploy && docker compose up -d --build
+#
+# Config comes from deploy/.env (see deploy/.env.example).
+
+services:
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - DOMAIN=${DOMAIN:?set DOMAIN in deploy/.env}
+      - ACME_EMAIL=${ACME_EMAIL:?set ACME_EMAIL in deploy/.env}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - code-server-test
+
+  code-server-test:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    image: workshop-workspace:latest
+    restart: unless-stopped
+    environment:
+      - PASSWORD=${TEST_PASSWORD:?set TEST_PASSWORD in deploy/.env}
+      - LITELLM_BASE_URL=${LITELLM_BASE_URL:-}
+      - MODEL=${MODEL:-claude-opus-4-7}
+      - PARTICIPANT_NAME=Test User
+    expose:
+      - "8080"
+      - "3000"
+    # Safety net so a runaway dev-server build can't take down the host.
+    mem_limit: 3g
+
+volumes:
+  caddy_data:
+  caddy_config:
