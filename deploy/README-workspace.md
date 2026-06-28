@@ -21,7 +21,7 @@ As you edit the code, that page updates automatically.
 
    ![Cline icon in the sidebar](resources/cline_icon.png)
 
-2. Choose **"Use your own API key"**, then set **API Provider** to **OpenRouter**.
+2. Choose **"Bring my own API key"**, then set **API Provider** to **OpenRouter**.
 
    <!-- TODO screenshot: Cline API Provider dropdown set to "OpenRouter" -> resources/cline_openrouter_provider.png -->
    ![Select Bring my own API key](resources/cline_bring_your_own_key.png)   
@@ -33,7 +33,7 @@ As you edit the code, that page updates automatically.
    {{OPENROUTER_KEY}}
    ```
 
-4. Set the **Model** to `anthropic/claude-sonnet-4`, then save.
+4. Set the **Model** to `anthropic/claude-sonnet-4.6`, then save.
 
    <!-- TODO screenshot: Cline OpenRouter key + model filled in -> resources/cline_openrouter_config.png -->
    ![Paste the key and pick a model](resources/cline_openrouter_provider.png)
