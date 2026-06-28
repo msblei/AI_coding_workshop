@@ -35,7 +35,7 @@ The **claim service** (zero-dep Node) holds the slot→password map and assigns 
 
 - **VM:** 8 vCPU / 32 GB RAM, Ubuntu 24.04. Azure **Standard_D8s_v5** or Hetzner **CCX33**.
   Use a **Static** public IP so Stop/Start keeps the same address.
-- **Docker** + compose plugin (installed by `bootstrap.sh` on first run).
+- **Docker** + compose plugin — installed automatically by `fleet.sh` on first run (no manual step).
 - **Inbound ports:** 22 (SSH), 80 + 443 (Caddy/TLS). On Azure, open 80/443 in the NSG.
 - **DNS** at your registrar, pointing at the VM IP:
   - `*.ai-coding-workshop.<domain>` (A) — covers `uN`, `uN-app`, `www`.
@@ -58,19 +58,32 @@ Measured with 15 workspaces on a 32 GB / 8-vCPU VM:
   smoother (not required).
 - `mem_limit: 3g` per container is set as a safety cap in the generated compose.
 
-## First-time setup
+## Quickstart — from a brand-new VM (in order)
 
-```bash
-# 1. Create the VM (static IP), open 22/80/443. Add DNS (wildcard + apex) → VM IP.
-# 2. Copy this repo to the VM (e.g. rsync or git), then on the VM:
-cd ~/ai_coding_workshop
-cp deploy/.env.example deploy/.env         # set DOMAIN, ACME_EMAIL, TEST_PASSWORD
-printf 'sk-or-v1-...\n' > deploy/openrouter-keys.txt   # 1 key (shared) or N (round-robin)
-sudo bash deploy/fleet.sh 15               # installs Docker if needed, builds, starts N workspaces
-cat deploy/users.txt                       # URLs + passwords (git-ignored)
-```
+1. **Create the VM** — 8 vCPU / 32 GB, Ubuntu 24.04, **Static** public IP. Open inbound **22, 80, 443**.
+2. **DNS** — two A records at your registrar, both pointing to the VM's IP:
+   - `*.ai-coding-workshop.<domain>` — wildcard (`uN`, `uN-app`, `www`)
+   - `ai-coding-workshop.<domain>` — apex (the landing page; the wildcard does *not* cover it)
+3. **SSH in, clone, configure, launch:**
 
-Then send participants to **`https://ai-coding-workshop.<domain>`**.
+   ```bash
+   ssh -i ~/.ssh/<key>.pem azureuser@<VM-IP>
+
+   git clone https://github.com/msblei/AI_coding_workshop ~/ai_coding_workshop
+   cd ~/ai_coding_workshop
+
+   cp deploy/.env.example deploy/.env                                # set DOMAIN + ACME_EMAIL
+   cp deploy/openrouter-keys.txt.example deploy/openrouter-keys.txt  # add your OpenRouter key(s)
+
+   sudo bash deploy/fleet.sh 15      # installs Docker if missing, builds, starts 15 workspaces
+   ```
+
+4. **Hand out** — send participants to `https://ai-coding-workshop.<domain>`; per-spot URLs + passwords
+   are in `cat deploy/users.txt`.
+
+First run takes ~5–10 min (Docker install + image build + dev servers compiling). Only **DOMAIN** and
+**ACME_EMAIL** in `.env` are required for the fleet. Re-running `fleet.sh` later rebuilds to a clean
+fleet (and resets the claim board); see "Running a workshop" below.
 
 ## Running a workshop
 
